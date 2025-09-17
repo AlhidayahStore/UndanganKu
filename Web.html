@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alhidayah Store - Katalog Undangan Digital & Cetak</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Style untuk section yang aktif */
+        .page-section {
+            display: none;
+        }
+        .page-section.active {
+            display: block;
+        }
+        /* Animasi fade-in */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Style untuk tombol filter aktif */
+        .filter-btn.active {
+            background-color: #8B5CF6; /* primary-light */
+            color: white;
+        }
+        html.dark .filter-btn.active {
+             background-color: #A78BFA; /* primary-dark */
+        }
+    </style>
+    <script>
+        // Konfigurasi Tailwind CSS untuk Dark Mode
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#8B5CF6', // violet-500
+                            dark: '#A78BFA' // violet-400
+                        },
+                        secondary: {
+                            light: '#6366F1', // indigo-500
+                            dark: '#818CF8' // indigo-400
+                        },
+                        background: {
+                            light: '#F9FAFB', // gray-50
+                            dark: '#1F2937' // gray-800
+                        },
+                        card: {
+                            light: '#FFFFFF',
+                            dark: '#374151' // gray-700
+                        },
+                        text: {
+                            light: '#111827', // gray-900
+                            dark: '#F9FAFB' // gray-50
+                        },
+                        subtext: {
+                            light: '#6B7280', // gray-500
+                            dark: '#D1D5DB' // gray-300
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark transition-colors duration-300">
+
+    <!-- Header & Navigasi -->
+    <header class="bg-card-light dark:bg-card-dark shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-primary-light dark:text-primary-dark nav-link" data-page="home">
+                Alhidayah Store
+            </a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="nav-link hover:text-primary-light dark:hover:text-primary-dark transition" data-page="home">Home</a>
+                <a href="#" class="nav-link hover:text-primary-light dark:hover:text-primary-dark transition" data-page="katalog">Katalog</a>
+                <a href="#" class="nav-link hover:text-primary-light dark:hover:text-primary-dark transition" data-page="tentang">Tentang Kami</a>
+                <a href="#" class="nav-link hover:text-primary-light dark:hover:text-primary-dark transition" data-page="kontak">Kontak</a>
+                <a href="#" class="nav-link hover:text-primary-light dark:hover:text-primary-dark transition text-sm bg-gray-100 dark:bg-gray-600 px-3 py-1 rounded-full" data-page="kelola">Kelola</a>
+            </div>
+            <div class="flex items-center">
+                <button id="theme-toggle" class="mr-4 text-xl p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600">
+                    <i class="fas fa-sun" id="theme-icon-light"></i>
+                    <i class="fas fa-moon hidden" id="theme-icon-dark"></i>
+                </button>
+                <button id="mobile-menu-button" class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#" class="block py-2 nav-link" data-page="home">Home</a>
+            <a href="#" class="block py-2 nav-link" data-page="katalog">Katalog</a>
+            <a href="#" class="block py-2 nav-link" data-page="tentang">Tentang Kami</a>
+            <a href="#" class="block py-2 nav-link" data-page="kontak">Kontak</a>
+            <a href="#" class="block py-2 nav-link" data-page="kelola">Kelola Tampilan</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6">
+        <!-- Halaman Utama -->
+        <section id="home" class="page-section active fade-in">
+            <div class="bg-gradient-to-r from-primary-light to-secondary-light dark:from-primary-dark dark:to-secondary-dark text-white rounded-lg shadow-xl p-8 md:p-16 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">Selamat Datang di Alhidayah Store</h1>
+                <p class="text-lg md:text-xl mb-8">Solusi undangan digital dan cetak yang modern, elegan, dan berkesan.</p>
+                <a href="#" class="bg-white text-primary-light dark:text-primary-dark font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition transform hover:scale-105 nav-link" data-page="katalog">
+                    Lihat Katalog
+                </a>
+            </div>
+        </section>
+
+        <!-- Halaman Katalog -->
+        <section id="katalog" class="page-section fade-in">
+            <h2 class="text-3xl font-bold text-center mb-4">Katalog Undangan Kami</h2>
+            <!-- Filter Buttons -->
+            <div id="filter-container" class="flex justify-center space-x-2 sm:space-x-4 mb-8">
+                <button class="filter-btn active px-4 py-2 rounded-full text-sm sm:text-base font-semibold transition bg-card-light dark:bg-card-dark" data-filter="semua">Semua</button>
+                <button class="filter-btn px-4 py-2 rounded-full text-sm sm:text-base font-semibold transition bg-card-light dark:bg-card-dark" data-filter="digital">Undangan Digital</button>
+                <button class="filter-btn px-4 py-2 rounded-full text-sm sm:text-base font-semibold transition bg-card-light dark:bg-card-dark" data-filter="cetak">Undangan Cetak</button>
+            </div>
+            <div id="katalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Card produk akan dimasukkan di sini oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- Halaman Tentang Kami -->
+        <section id="tentang" class="page-section fade-in">
+            <div class="bg-card-light dark:bg-card-dark rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+                <h2 id="about-title" class="text-3xl font-bold text-center mb-6 text-primary-light dark:text-primary-dark"></h2>
+                <div id="about-content" class="space-y-4 text-subtext-light dark:text-subtext-dark leading-relaxed">
+                    <!-- Konten "Tentang Kami" akan dimasukkan di sini -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Halaman Kontak -->
+        <section id="kontak" class="page-section fade-in">
+            <div class="bg-card-light dark:bg-card-dark rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-8">Hubungi Kami</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Info Kontak -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Informasi Kontak</h3>
+                        <div class="space-y-4 text-subtext-light dark:text-subtext-dark">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt mt-1 mr-4 text-primary-light dark:text-primary-dark"></i>
+                                <span id="contact-address"></span>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fab fa-whatsapp mt-1 mr-4 text-primary-light dark:text-primary-dark"></i>
+                                <a id="contact-whatsapp" href="#" class="hover:underline"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Form Kontak -->
+                    <div>
+                         <h3 class="text-xl font-semibold mb-4">Kirim Pesan</h3>
+                         <form id="contact-form" class="space-y-4">
+                             <div>
+                                 <label for="name" class="block mb-1 font-medium">Nama</label>
+                                 <input type="text" id="name" name="name" class="w-full p-2 border rounded-md bg-background-light dark:bg-gray-600 dark:border-gray-500" required>
+                             </div>
+                             <div>
+                                 <label for="email" class="block mb-1 font-medium">Email</label>
+                                 <input type="email" id="email" name="email" class="w-full p-2 border rounded-md bg-background-light dark:bg-gray-600 dark:border-gray-500" required>
+                             </div>
+                             <div>
+                                 <label for="message" class="block mb-1 font-medium">Pesan</label>
+                                 <textarea id="message" name="message" rows="4" class="w-full p-2 border rounded-md bg-background-light dark:bg-gray-600 dark:border-gray-500" required></textarea>
+                             </div>
+                             <button type="submit" class="w-full bg-primary-light hover:bg-opacity-90 dark:bg-primary-dark dark:hover:bg-opacity-90 text-white font-bold py-2 px-4 rounded-md transition">
+                                 Kirim Pesan
+                             </button>
+                         </form>
+                         <p id="form-success-message" class="text-green-500 mt-4 hidden">Terima kasih! Pesan Anda telah terkirim.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Halaman Kelola Tampilan -->
+        <section id="kelola" class="page-section fade-in">
+             <div class="bg-card-light dark:bg-card-dark rounded-lg shadow-lg p-8 max-w-4xl mx-auto space-y-8">
+                <h2 class="text-3xl font-bold text-center mb-2">Kelola Website</h2>
+                <p class="text-center text-subtext-light dark:text-subtext-dark -mt-6 mb-6">Ubah semua konten website dari halaman ini. Klik "Simpan Semua Perubahan" di bagian bawah untuk menerapkan.</p>
+
+                <!-- Pengaturan Umum -->
+                <div class="border dark:border-gray-600 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-4">Pengaturan Umum & Kontak</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="kelola-whatsapp" class="block font-medium mb-1">Nomor WhatsApp (diawali 62)</label>
+                            <input type="text" id="kelola-whatsapp" class="w-full p-2 border rounded-md bg-background-light dark:bg-gray-600 dark:border-gray-500">
+                        </div>
+                        <div>
+                            <label for="kelola-address" class="block font-medium mb-1">Alamat</label>
+                            <input type="text" id="kelola-address" class="w-full p-2 border rounded-md bg-background-light dark:bg-gray-600 dark:border-gray-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pengaturan Tentang Kami -->
+                 <div class="border dark:border-gray-600 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-4">Halaman "Tentang Kami"</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="kelola-about-title" class="block font-medium mb-1">Judul Halaman</label>
+                            <input type="text" id="kelola-about-title" class="w-full p-2 border rounded-md bg-background-light dark:bg-gray-600 dark:border-gray-500">
+                        </div>
+                        <div>
+                            <label for="kelola-about-content" class="block font-medium mb-1">Konten Halaman (HTML didukung)</label>
+                            <textarea id="kelola-about-content" rows="5" class="w-full p-2 border rounded-md bg-background-light dark:bg-gray-600 dark:border-gray-500"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pengaturan Produk -->
+                 <div class="border dark:border-gray-600 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-4">Kelola Katalog Produk</h3>
+                    
+                    <!-- Form Tambah Produk -->
+                    <div id="add-product-form" class="bg-background-light dark:bg-gray-800 p-4 rounded-md mb-6 border dark:border-gray-600">
+                        <h4 class="font-semibold mb-2">Tambah Produk Baru</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                           <input type="text" id="new-product-name" placeholder="Nama Produk" class="p-2 border rounded-md bg-card-light dark:bg-gray-700 dark:border-gray-500">
+                           <input type="text" id="new-product-price" placeholder="Harga" class="p-2 border rounded-md bg-card-light dark:bg-gray-700 dark:border-gray-500">
+                           <textarea id="new-product-desc" placeholder="Deskripsi Singkat" rows="2" class="sm:col-span-2 p-2 border rounded-md bg-card-light dark:bg-gray-700 dark:border-gray-500"></textarea>
+                           <input type="text" id="new-product-image" placeholder="URL Gambar" class="p-2 border rounded-md bg-card-light dark:bg-gray-700 dark:border-gray-500">
+                           <select id="new-product-category" class="p-2 border rounded-md bg-card-light dark:bg-gray-700 dark:border-gray-500">
+                               <option value="digital">Undangan Digital</option>
+                               <option value="cetak">Undangan Cetak</option>
+                           </select>
+                        </div>
+                        <button id="add-product-button" class="w-full mt-4 bg-primary-light hover:bg-opacity-90 dark:bg-primary-dark dark:hover:bg-opacity-90 text-white font-bold py-2 px-4 rounded-md transition">Tambahkan ke Editor</button>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="data-editor" class="block font-semibold mb-2">Editor Data Produk (Format JSON)</label>
+                        <p class="text-sm text-subtext-light dark:text-subtext-dark mb-2">Anda bisa mengedit atau menghapus produk langsung dari sini. Hapus satu blok `{...}` untuk menghapus produk.</p>
+                        <textarea id="data-editor" rows="15" class="w-full p-3 font-mono text-sm border rounded-md bg-background-light dark:bg-gray-600 dark:border-gray-500"></textarea>
+                    </div>
+                </div>
+
+                <button id="save-all-button" class="w-full bg-secondary-light hover:bg-opacity-90 dark:bg-secondary-dark dark:hover:bg-opacity-90 text-white font-bold py-3 px-4 rounded-md transition text-lg">
+                    <i class="fas fa-save mr-2"></i> Simpan Semua Perubahan
+                </button>
+                <p id="save-status-message" class="text-center mt-4"></p>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center py-6 mt-8 border-t border-gray-200 dark:border-gray-700 text-subtext-light dark:text-subtext-dark">
+        <p>&copy; <span id="current-year"></span> Alhidayah Store. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // ===================================================================================
+        // KONFIGURASI AWAL WEBSITE - BISA DIUBAH DARI HALAMAN KELOLA
+        // ===================================================================================
+
+        const defaultConfig = {
+            whatsappNumber: '62895425646100',
+            products: [
+                { name: 'Undangan Digital "Elegansi Mawar"', description: 'Desain modern dengan sentuhan bunga mawar yang elegan.', price: 'Rp 75.000', image: 'https://placehold.co/600x800/fecdd3/444?text=Mawar', category: 'digital' },
+                { name: 'Undangan Cetak "Klasik Emas"', description: 'Mewah dengan aksen foil emas dan kertas berkualitas.', price: 'Rp 5.500 / pcs', image: 'https://placehold.co/600x800/fde68a/444?text=Emas', category: 'cetak' },
+                { name: 'Undangan Digital "Minimalis Geometris"', description: 'Simpel, bersih, dan modern untuk kaum milenial.', price: 'Rp 50.000', image: 'https://placehold.co/600x800/a5f3fc/444?text=Geometris', category: 'digital' },
+                { name: 'Undangan Cetak "Rustic Vintage"', description: 'Tema pedesaan yang hangat dengan bahan daur ulang.', price: 'Rp 4.000 / pcs', image: 'https://placehold.co/600x800/d2b48c/444?text=Rustic', category: 'cetak' },
+                { name: 'Undangan Digital "Animasi Pasangan"', description: 'Undangan video dengan animasi cerita pasangan.', price: 'Rp 150.000', image: 'https://placehold.co/600x800/c4b5fd/444?text=Animasi', category: 'digital' },
+                { name: 'Undangan Cetak "Akrilik Transparan"', description: 'Undangan super mewah bahan akrilik bening.', price: 'Rp 15.000 / pcs', image: 'https://placehold.co/600x800/e5e7eb/444?text=Akrilik', category: 'cetak' },
+            ],
+            aboutUs: {
+                title: 'Tentang Alhidayah Store',
+                content: `<p>Alhidayah Store lahir dari semangat untuk membantu setiap pasangan mengabadikan momen bahagia mereka melalui undangan yang indah dan berkesan. Kami percaya bahwa undangan adalah kesan pertama dari sebuah perayaan, oleh karena itu, kami berkomitmen untuk menyediakan desain yang tidak hanya menarik secara visual tetapi juga mencerminkan kepribadian setiap pasangan.</p><p>Kami melayani pembuatan undangan digital (website, video) dan undangan cetak dengan berbagai tema, mulai dari klasik, modern, minimalis, hingga rustic. Dengan kualitas terbaik dan harga yang kompetitif, kami siap menjadi bagian dari hari spesial Anda.</p>`
+            },
+            contactInfo: {
+                address: 'Jl. Undangan Bahagia No. 123, Kota Kreatif, Indonesia',
+                phoneDisplay: '0895-4256-46100' // Ini akan di-generate otomatis dari whatsappNumber
+            }
+        };
+
+        // ===================================================================================
+        // KODE FUNGSIONAL WEBSITE - TIDAK PERLU DIEDIT KECUALI ANDA MENGERTI
+        // ===================================================================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- VARIABEL GLOBAL ---
+            let siteConfig;
+            const elements = {
+                katalogGrid: document.getElementById('katalog-grid'),
+                navLinks: document.querySelectorAll('.nav-link'),
+                pages: document.querySelectorAll('.page-section'),
+                mobileMenuButton: document.getElementById('mobile-menu-button'),
+                mobileMenu: document.getElementById('mobile-menu'),
+                themeToggle: document.getElementById('theme-toggle'),
+                themeIconLight: document.getElementById('theme-icon-light'),
+                themeIconDark: document.getElementById('theme-icon-dark'),
+                contactForm: document.getElementById('contact-form'),
+                formSuccessMessage: document.getElementById('form-success-message'),
+                filterContainer: document.getElementById('filter-container'),
+                kelola: {
+                    whatsapp: document.getElementById('kelola-whatsapp'),
+                    address: document.getElementById('kelola-address'),
+                    aboutTitle: document.getElementById('kelola-about-title'),
+                    aboutContent: document.getElementById('kelola-about-content'),
+                    dataEditor: document.getElementById('data-editor'),
+                    saveAllButton: document.getElementById('save-all-button'),
+                    saveStatusMessage: document.getElementById('save-status-message'),
+                    addProductButton: document.getElementById('add-product-button'),
+                    newProductName: document.getElementById('new-product-name'),
+                    newProductPrice: document.getElementById('new-product-price'),
+                    newProductDesc: document.getElementById('new-product-desc'),
+                    newProductImage: document.getElementById('new-product-image'),
+                    newProductCategory: document.getElementById('new-product-category'),
+                }
+            };
+
+            // --- FUNGSI UTAMA ---
+            
+            function loadData() {
+                const savedConfig = localStorage.getItem('alhidayahSiteConfig');
+                siteConfig = savedConfig ? JSON.parse(savedConfig) : JSON.parse(JSON.stringify(defaultConfig));
+            }
+
+            function saveData() {
+                localStorage.setItem('alhidayahSiteConfig', JSON.stringify(siteConfig));
+            }
+
+            function renderKatalog(filter = 'semua') {
+                const grid = elements.katalogGrid;
+                if (!grid) return;
+                grid.innerHTML = '';
+                const filteredProducts = siteConfig.products.filter(p => filter === 'semua' || p.category === filter);
+
+                if (filteredProducts.length === 0) {
+                    grid.innerHTML = `<p class="col-span-full text-center text-subtext-light dark:text-subtext-dark">Tidak ada produk dalam kategori ini.</p>`;
+                    return;
+                }
+
+                filteredProducts.forEach(product => {
+                    const whatsappMessage = encodeURIComponent(`Halo, saya ingin pesan produk ini: ${product.name}`);
+                    const whatsappLink = `https://api.whatsapp.com/send?phone=${siteConfig.whatsappNumber}&text=${whatsappMessage}`;
+                    const card = document.createElement('div');
+                    card.className = 'bg-card-light dark:bg-card-dark rounded-lg shadow-lg overflow-hidden transform transition hover:scale-105 duration-300 flex flex-col';
+                    card.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x800/e0e0e0/444?text=Gambar Rusak';">
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-xl font-semibold mb-2">${product.name}</h3>
+                            <p class="text-subtext-light dark:text-subtext-dark mb-4 flex-grow">${product.description}</p>
+                            <p class="text-lg font-bold text-primary-light dark:text-primary-dark mb-4">${product.price}</p>
+                            <a href="${whatsappLink}" target="_blank" class="mt-auto w-full bg-green-500 text-white font-bold py-2 px-4 rounded-md text-center hover:bg-green-600 transition">
+                                <i class="fab fa-whatsapp mr-2"></i> Pesan via WhatsApp
+                            </a>
+                        </div>`;
+                    grid.appendChild(card);
+                });
+            }
+            
+            function renderDynamicContent() {
+                // Halaman Tentang
+                document.getElementById('about-title').innerText = siteConfig.aboutUs.title;
+                document.getElementById('about-content').innerHTML = siteConfig.aboutUs.content;
+                
+                // Halaman Kontak
+                const phoneDisplay = siteConfig.whatsappNumber.replace(/(\d{2})(\d{3,4})(\d{4})(\d{4})/, '0$2-$3-$4');
+                document.getElementById('contact-address').innerText = siteConfig.contactInfo.address;
+                const contactWhatsapp = document.getElementById('contact-whatsapp');
+                contactWhatsapp.innerText = phoneDisplay;
+                contactWhatsapp.href = `https://api.whatsapp.com/send?phone=${siteConfig.whatsappNumber}`;
+                
+                // Footer
+                document.getElementById('current-year').innerText = new Date().getFullYear();
+            }
+
+            function populateKelolaForm() {
+                const k = elements.kelola;
+                k.whatsapp.value = siteConfig.whatsappNumber;
+                k.address.value = siteConfig.contactInfo.address;
+                k.aboutTitle.value = siteConfig.aboutUs.title;
+                k.aboutContent.value = siteConfig.aboutUs.content;
+                k.dataEditor.value = JSON.stringify(siteConfig.products, null, 2);
+            }
+
+            function showPage(pageId) {
+                elements.pages.forEach(page => page.classList.toggle('active', page.id === pageId));
+                window.scrollTo(0, 0);
+                elements.mobileMenu.classList.add('hidden');
+                if (pageId === 'kelola') populateKelolaForm();
+            }
+
+            function applyTheme(theme) {
+                document.documentElement.classList.toggle('dark', theme === 'dark');
+                elements.themeIconLight.classList.toggle('hidden', theme === 'dark');
+                elements.themeIconDark.classList.toggle('hidden', theme !== 'dark');
+            }
+
+            // --- EVENT LISTENERS ---
+            elements.navLinks.forEach(link => link.addEventListener('click', e => {
+                e.preventDefault();
+                showPage(link.getAttribute('data-page'));
+            }));
+
+            elements.mobileMenuButton.addEventListener('click', () => elements.mobileMenu.classList.toggle('hidden'));
+            
+            elements.themeToggle.addEventListener('click', () => {
+                const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+
+            elements.contactForm.addEventListener('submit', e => {
+                e.preventDefault();
+                elements.formSuccessMessage.classList.remove('hidden');
+                elements.contactForm.reset();
+                setTimeout(() => elements.formSuccessMessage.classList.add('hidden'), 4000);
+            });
+            
+            elements.filterContainer.addEventListener('click', e => {
+                if (e.target.matches('.filter-btn')) {
+                    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    renderKatalog(e.target.dataset.filter);
+                }
+            });
+            
+            elements.kelola.saveAllButton.addEventListener('click', () => {
+                const k = elements.kelola;
+                try {
+                    // Simpan produk dari editor
+                    const newProducts = JSON.parse(k.dataEditor.value);
+                    if (!Array.isArray(newProducts)) throw new Error("Data produk harus berupa array/daftar.");
+                    siteConfig.products = newProducts;
+                    
+                    // Simpan pengaturan lain
+                    siteConfig.whatsappNumber = k.whatsapp.value;
+                    siteConfig.contactInfo.address = k.address.value;
+                    siteConfig.aboutUs.title = k.aboutTitle.value;
+                    siteConfig.aboutUs.content = k.aboutContent.value;
+
+                    saveData();
+                    renderAllContent(); // Render ulang semua
+                    
+                    k.saveStatusMessage.textContent = 'Data berhasil disimpan!';
+                    k.saveStatusMessage.className = 'text-center mt-4 text-green-500';
+                } catch (e) {
+                    k.saveStatusMessage.textContent = 'Gagal menyimpan! Format data tidak valid. ' + e.message;
+                    k.saveStatusMessage.className = 'text-center mt-4 text-red-500';
+                }
+                setTimeout(() => k.saveStatusMessage.textContent = '', 4000);
+            });
+
+            elements.kelola.addProductButton.addEventListener('click', () => {
+                const k = elements.kelola;
+                const newProduct = {
+                    name: k.newProductName.value,
+                    description: k.newProductDesc.value,
+                    price: k.newProductPrice.value,
+                    image: k.newProductImage.value,
+                    category: k.newProductCategory.value
+                };
+
+                if (!newProduct.name || !newProduct.price || !newProduct.image) {
+                    alert("Nama, Harga, dan URL Gambar tidak boleh kosong!");
+                    return;
+                }
+
+                try {
+                    const currentProducts = JSON.parse(k.dataEditor.value);
+                    currentProducts.push(newProduct);
+                    k.dataEditor.value = JSON.stringify(currentProducts, null, 2);
+                    // Reset form
+                    k.newProductName.value = '';
+                    k.newProductDesc.value = '';
+                    k.newProductPrice.value = '';
+                    k.newProductImage.value = '';
+                } catch (e) {
+                    alert("Format data di editor tidak valid. Perbaiki sebelum menambah produk baru.");
+                }
+            });
+            
+            // --- INISIALISASI ---
+            function renderAllContent() {
+                renderDynamicContent();
+                renderKatalog();
+            }
+
+            loadData();
+            applyTheme(localStorage.getItem('theme') || 'light');
+            renderAllContent();
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
+
